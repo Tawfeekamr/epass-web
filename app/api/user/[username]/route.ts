@@ -7,12 +7,12 @@ export async function GET(req: NextRequest, {params}: { params: { username: stri
     const authHeader = req.headers.get('Authorization');
     const token = authHeader?.split(' ')[1];
 
-    if (!token) {
-        return NextResponse.json({message: 'Unauthorized'}, {status: 401});
-    }
+    // if (!token) {
+    //     return NextResponse.json({message: 'Unauthorized'}, {status: 401});
+    // }
 
     try {
-        await verifyToken(token);
+        // await verifyToken(token);
 
         if (!username) {
             return NextResponse.json({message: 'Username is required'}, {status: 400});
