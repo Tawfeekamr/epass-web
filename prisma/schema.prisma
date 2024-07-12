@@ -1,0 +1,63 @@
+// schema.prisma
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+model User {
+  id           Int            @id @default(autoincrement())
+  email        String         @unique
+  username     String         @unique
+  password     String
+  country      Country        @relation(fields: [countryId], references: [id])
+  countryId    Int
+  createdAt    DateTime       @default(now())
+  updatedAt    DateTime       @updatedAt
+  Notification Notification[]
+
+  @@map("users")
+}
+
+model Country {
+  id           Int           @id @default(autoincrement())
+  name         String        @unique
+  code         String        @unique
+  usernameRule UsernameRule?
+
+  users User[]
+
+  @@map("countries")
+}
+
+model UsernameRule {
+  id        Int     @id @default(autoincrement())
+  country   Country @relation(fields: [countryId], references: [id])
+  countryId Int     @unique
+  regex     String
+  message   String
+
+  @@map("username_rules")
+}
+
+model Locale {
+  id        Int     @id @default(autoincrement())
+  code      String  @unique
+  language  String
+  isDefault Boolean @default(false)
+
+  @@map("locales")
+}
+
+model Notification {
+  id        Int      @id @default(autoincrement())
+  user      User     @relation(fields: [userId], references: [id])
+  userId    Int
+  message   String
+  createdAt DateTime @default(now())
+
+  @@map("notifications")
+}

@@ -1,0 +1,22 @@
+/* LoginView.module.css */
+.container {
+    display: grid;
+    grid-template-rows: repeat(2, 1fr);
+    grid-template-columns: 1fr;
+    height: 100vh;
+}
+
+@media (min-width: 1024px) {
+    .container {
+        grid-template-rows: 1fr;
+        grid-template-columns: repeat(2, 1fr);
+    }
+}
+
+.leftColumn {
+    grid-row: span 1;
+}
+
+.rightColumn {
+    grid-row: span 1;
+}
