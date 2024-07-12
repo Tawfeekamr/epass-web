@@ -1,10 +1,7 @@
-import React, { ReactElement } from 'react';
-import {
-    AppRouterContext,
-    AppRouterInstance,
-} from 'next/dist/shared/lib/app-router-context.shared-runtime';
-import { render } from '@testing-library/react';
-import { vi } from 'vitest';
+import React, {ReactElement} from 'react';
+import {AppRouterContext, AppRouterInstance,} from 'next/dist/shared/lib/app-router-context.shared-runtime';
+import {render} from '@testing-library/react';
+import {vi} from 'vitest';
 
 export type AppRouterContextProviderMockProps = {
     router: Partial<AppRouterInstance>;
@@ -27,7 +24,7 @@ export const AppRouterContextProviderMock = ({
     return (
         <AppRouterContext.Provider value={mockedRouter}>
             {children}
-            </AppRouterContext.Provider>
+        </AppRouterContext.Provider>
     );
 };
 
@@ -35,6 +32,6 @@ export const renderWithRouter = (ui: ReactElement, router: Partial<AppRouterInst
     return render(
         <AppRouterContextProviderMock router={router}>
             {ui}
-            </AppRouterContextProviderMock>
+        </AppRouterContextProviderMock>
     );
 };

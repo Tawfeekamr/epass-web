@@ -1,8 +1,8 @@
 import React from 'react';
-import { render, screen, fireEvent, waitFor } from '@testing-library/react';
-import { describe, it, beforeEach, vi } from 'vitest';
+import {fireEvent, render, screen, waitFor} from '@testing-library/react';
+import {beforeEach, describe, it, vi} from 'vitest';
 import axios from 'axios';
-import { AppRouterContextProviderMock, renderWithRouter } from './login-test-utils';
+import {AppRouterContextProviderMock, renderWithRouter} from './login-test-utils';
 import LoginScreen from '@/components/login/LoginScreen';
 import '@testing-library/jest-dom';
 
@@ -11,10 +11,10 @@ const mockedAxios = axios as jest.Mocked<typeof axios>;
 
 const mockCountriesResponse = {
     data: [
-        { id: 1, name: 'United Arab Emirates', code: 'UAE' },
-        { id: 2, name: 'India', code: 'IN' },
-        { id: 3, name: 'United States', code: 'US' },
-        { id: 4, name: 'Germany', code: 'DE' },
+        {id: 1, name: 'United Arab Emirates', code: 'UAE'},
+        {id: 2, name: 'India', code: 'IN'},
+        {id: 3, name: 'United States', code: 'US'},
+        {id: 4, name: 'Germany', code: 'DE'},
     ],
 };
 
@@ -33,7 +33,8 @@ describe('LoginScreen', () => {
     });
 
     it('renders login form and fetches countries', async () => {
-        renderWithRouter(<LoginScreen onCountryChange={() => {}} />);
+        renderWithRouter(<LoginScreen onCountryChange={() => {
+        }}/>);
 
         await waitFor(() => {
             expect(screen.getByText('Select a country')).toBeInTheDocument();
@@ -46,7 +47,8 @@ describe('LoginScreen', () => {
 
     it('handles country selection and form submission', async () => {
         const push = vi.fn();
-        render(<AppRouterContextProviderMock router={{ push }}><LoginScreen onCountryChange={() => {}} /></AppRouterContextProviderMock>);
+        render(<AppRouterContextProviderMock router={{push}}><LoginScreen onCountryChange={() => {
+        }}/></AppRouterContextProviderMock>);
 
         await waitFor(() => {
             expect(screen.getByText('Select a country')).toBeInTheDocument();
@@ -54,9 +56,9 @@ describe('LoginScreen', () => {
 
         fireEvent.mouseDown(screen.getByText('Select a country'));
         fireEvent.click(screen.getByText('India'));
-        fireEvent.change(screen.getByPlaceholderText('m@example.com'), { target: { value: 'user@example.com' } });
-        fireEvent.change(screen.getByPlaceholderText('Username'), { target: { value: 'testuser' } });
-        fireEvent.change(screen.getByPlaceholderText('Password'), { target: { value: 'password123' } });
+        fireEvent.change(screen.getByPlaceholderText('m@example.com'), {target: {value: 'user@example.com'}});
+        fireEvent.change(screen.getByPlaceholderText('Username'), {target: {value: 'testuser'}});
+        fireEvent.change(screen.getByPlaceholderText('Password'), {target: {value: 'password123'}});
 
         mockedAxios.post.mockResolvedValue(mockLoginResponse);
 
@@ -70,7 +72,8 @@ describe('LoginScreen', () => {
     });
 
     it('shows error message on login failure', async () => {
-        renderWithRouter(<LoginScreen onCountryChange={() => {}} />);
+        renderWithRouter(<LoginScreen onCountryChange={() => {
+        }}/>);
 
         await waitFor(() => {
             expect(screen.getByText('Select a country')).toBeInTheDocument();
@@ -78,9 +81,9 @@ describe('LoginScreen', () => {
 
         fireEvent.mouseDown(screen.getByText('Select a country'));
         fireEvent.click(screen.getByText('India'));
-        fireEvent.change(screen.getByPlaceholderText('m@example.com'), { target: { value: 'user@example.com' } });
-        fireEvent.change(screen.getByPlaceholderText('Username'), { target: { value: 'testuser' } });
-        fireEvent.change(screen.getByPlaceholderText('Password'), { target: { value: 'password123' } });
+        fireEvent.change(screen.getByPlaceholderText('m@example.com'), {target: {value: 'user@example.com'}});
+        fireEvent.change(screen.getByPlaceholderText('Username'), {target: {value: 'testuser'}});
+        fireEvent.change(screen.getByPlaceholderText('Password'), {target: {value: 'password123'}});
 
         mockedAxios.post.mockRejectedValue({
             response: {

@@ -4,7 +4,8 @@ import '@testing-library/jest-dom';
 class MockNotification {
     static permission = 'granted';
 
-    constructor(public title: string, public options?: NotificationOptions) {}
+    constructor(public title: string, public options?: NotificationOptions) {
+    }
 
     static requestPermission() {
         return Promise.resolve(MockNotification.permission);

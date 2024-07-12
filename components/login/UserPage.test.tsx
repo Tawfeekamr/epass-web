@@ -1,10 +1,13 @@
 import React from 'react';
-import { render, screen, waitFor, fireEvent } from '@testing-library/react';
-import { describe, it, beforeEach } from 'vitest';
+import { fireEvent, screen, waitFor } from '@testing-library/react';
+import { beforeEach, describe, it, vi } from 'vitest';
+import axios from 'axios';
 import UserPage from '../../app/user/[username]/page';
 import { renderWithRouter } from './user-test-utils';
 import '@testing-library/jest-dom';
-import {mockedAxios} from "@/utils/mockAxios";
+
+vi.mock('axios');
+const mockedAxios = axios as jest.Mocked<typeof axios>;
 
 const mockUserResponse = {
     data: {
@@ -14,18 +17,31 @@ const mockUserResponse = {
     },
 };
 
+const mockUseRouter = {
+    push: vi.fn(),
+};
+
+const mockUseParams = {
+    username: 'testuser',
+};
+
+vi.mock('next/navigation', async () => {
+    const actual = await vi.importActual('next/navigation');
+    return {
+        ...actual,
+        useRouter: () => mockUseRouter,
+        useParams: () => mockUseParams,
+    };
+});
+
 describe('UserPage', () => {
     beforeEach(() => {
         mockedAxios.get.mockResolvedValue(mockUserResponse);
+        mockUseRouter.push.mockClear();
     });
 
     it('renders user data and handles logout', async () => {
-        const push = vi.fn();
-
-        renderWithRouter(<UserPage />, {
-            push,
-            query: { username: 'testuser' },
-        });
+        renderWithRouter(<UserPage />);
 
         await waitFor(() => {
             expect(screen.getByText('Username: testuser')).toBeInTheDocument();
@@ -40,7 +56,7 @@ describe('UserPage', () => {
         fireEvent.click(logoutButton);
 
         await waitFor(() => {
-            expect(push).toHaveBeenCalledWith('/login');
+            expect(mockUseRouter.push).toHaveBeenCalledWith('/login');
         });
 
         expect(localStorage.getItem('token')).toBeNull();
@@ -49,27 +65,20 @@ describe('UserPage', () => {
     it('redirects to login if unauthorized', async () => {
         mockedAxios.get.mockRejectedValue({ response: { status: 401 } });
 
-        const push = vi.fn();
-
-        renderWithRouter(<UserPage />, {
-            push,
-            query: { username: 'testuser' },
-        });
+        renderWithRouter(<UserPage />);
 
         await waitFor(() => {
-            expect(push).toHaveBeenCalledWith('/login');
+            expect(mockUseRouter.push).toHaveBeenCalledWith('/login');
         });
     });
 
-    it('shows error message if user not found', async () => {
+    it('shows error message if Error loading user data', async () => {
         mockedAxios.get.mockRejectedValue({ response: { status: 404 } });
 
-        renderWithRouter(<UserPage />, {
-            query: { username: 'nonexistentuser' },
-        });
+        renderWithRouter(<UserPage />);
 
         await waitFor(() => {
-            expect(screen.getByText('User not found')).toBeInTheDocument();
+            expect(screen.getByText('Error loading user data')).toBeInTheDocument();
         });
     });
 });

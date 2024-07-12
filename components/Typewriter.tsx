@@ -1,7 +1,7 @@
 "use client";
-import { TypewriterEffectSmooth } from "@/components/animation/typewriter-effect";
-import React, { useState, useEffect } from "react";
-import { useRouter } from "next/navigation";
+import {TypewriterEffectSmooth} from "@/components/animation/typewriter-effect";
+import React, {useState} from "react";
+import {useRouter} from "next/navigation";
 
 export default function Typewriter() {
     const router = useRouter();
@@ -67,7 +67,7 @@ export default function Typewriter() {
             <p className="text-neutral-600 dark:text-neutral-200 text-xs sm:text-base">
                 Tawfiq Amro FE Task (twamro@gmail.com)
             </p>
-            <TypewriterEffectSmooth key={key} words={words} />
+            <TypewriterEffectSmooth key={key} words={words}/>
             <div className="flex flex-col md:flex-row space-y-4 md:space-y-0 space-x-0 md:space-x-4">
                 <button
                     className="w-40 h-10 rounded-xl bg-black border dark:border-white border-transparent text-white text-sm"

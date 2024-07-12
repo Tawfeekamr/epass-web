@@ -1,20 +1,19 @@
 'use client';
-import React, { useEffect, useState } from 'react';
+import React, {useEffect, useState} from 'react';
 import {usersData} from "@/statics";
 import {TUserData} from "@/@types";
-
 
 
 interface LeftColumnProps {
     selectedCountry: string;
 }
 
-const LeftColumn: React.FC<LeftColumnProps> = ({ selectedCountry }) => {
+const LeftColumn: React.FC<LeftColumnProps> = ({selectedCountry}) => {
     const [userInfo, setUserInfo] = useState<TUserData | null>(null);
 
     useEffect(() => {
         const user = usersData.find(user => user.country === selectedCountry);
-        console.debug('user',user)
+        console.debug('user', user)
         setUserInfo(user || null);
     }, [selectedCountry]);
 

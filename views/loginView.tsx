@@ -5,7 +5,7 @@ import LoginScreen from "@/components/login/LoginScreen";
 import React, {useState} from "react";
 import styles from '../styles/LoginView.module.css';
 
-export default function LoginView () {
+export default function LoginView() {
     const [selectedCountry, setSelectedCountry] = useState<string>('US');
 
     const handleCountryChange = (country: string) => {

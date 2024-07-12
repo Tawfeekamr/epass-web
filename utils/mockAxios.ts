@@ -1,5 +1,4 @@
-import { vi } from "vitest";
-import axios from 'axios';
+import {vi} from "vitest";
 
 function createMocks() {
     const mocks = {
@@ -27,4 +26,4 @@ function createMocks() {
 
 const mockedAxios = createMocks();
 
-export { mockedAxios };
+export {mockedAxios};

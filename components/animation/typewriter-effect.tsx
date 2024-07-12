@@ -1,7 +1,7 @@
 "use client";
 
-import { motion, stagger, useAnimate, useInView } from "framer-motion";
-import { useEffect } from "react";
+import {motion, stagger, useAnimate, useInView} from "framer-motion";
+import {useEffect} from "react";
 import {cn} from "@/lib/utils";
 
 export const TypewriterEffect = ({
@@ -162,7 +162,8 @@ export const TypewriterEffectSmooth = ({
                     }}
                 >
                     {renderWords()}{" "}
-                </div>{" "}
+                </div>
+                {" "}
             </motion.div>
             <motion.span
                 initial={{

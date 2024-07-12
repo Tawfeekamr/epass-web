@@ -8,7 +8,7 @@ export default function Login() {
             <Head>
                 <title>Home - ePass App</title>
             </Head>
-            <Typewriter />
+            <Typewriter/>
         </>
     );
 }

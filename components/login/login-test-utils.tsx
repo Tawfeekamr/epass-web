@@ -1,10 +1,7 @@
 import React, {ReactElement} from 'react';
-import {
-    AppRouterContext,
-    AppRouterInstance,
-} from 'next/dist/shared/lib/app-router-context.shared-runtime';
-import { render } from '@testing-library/react';
-import { vi } from 'vitest';
+import {AppRouterContext, AppRouterInstance,} from 'next/dist/shared/lib/app-router-context.shared-runtime';
+import {render} from '@testing-library/react';
+import {vi} from 'vitest';
 
 export type AppRouterContextProviderMockProps = {
     router: Partial<AppRouterInstance>;

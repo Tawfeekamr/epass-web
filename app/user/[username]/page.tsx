@@ -1,24 +1,25 @@
 'use client';
 import React, { useEffect, useState } from 'react';
-import axiosInstance from "@/utils/axiosConfig";
+import axios from 'axios';
 import { useRouter, useParams } from 'next/navigation';
 import Loading from "@/components/Loading";
 import { BackgroundGradient } from "@/components/animation/BackgroundGradient";
 import { Button } from "@/components/ui/button";
+import {IUser} from "@/@types";
 
 const UserPage: React.FC = () => {
-    const [user, setUser] = useState<any>(null);
+    const [user, setUser] = useState<IUser | null>(null);
     const [loading, setLoading] = useState<boolean>(true);
     const [error, setError] = useState<string | null>(null);
-    const params = useParams();
+    const { username } = useParams();
     const router = useRouter();
 
     useEffect(() => {
         const fetchUser = async () => {
-            if (!params || !params.username) return;
+            if (!username) return;
 
             try {
-                const response = await axiosInstance.get(`/api/user/${params.username}`);
+                const response = await axios.get(`/api/user/${username}`);
                 setUser(response.data);
                 setLoading(false);
             } catch (error: any) {
@@ -33,7 +34,7 @@ const UserPage: React.FC = () => {
         };
 
         fetchUser();
-    }, [params, router]);
+    }, [username, router]);
 
     const handleLogout = () => {
         localStorage.removeItem('token');
@@ -56,10 +57,10 @@ const UserPage: React.FC = () => {
         <div className="flex items-center justify-center min-h-screen bg-gray-900 text-white">
             <BackgroundGradient>
                 <div className="p-5 space-y-2">
-                    <h1><b>Username</b>: {user.username}</h1>
-                    <p><b>Email</b>: {user.email}</p>
-                    <p><b>Country</b>: {user.country?.name}</p>
-                    <div className={'pt-5'}>
+                    <h1>Username: {user.username}</h1>
+                    <p>Email: {user.email}</p>
+                    <p>Country: {user.country?.name}</p>
+                    <div className="pt-5">
                         <Button onClick={handleLogout} className="w-full">Logout</Button>
                     </div>
                 </div>

@@ -1,4 +1,4 @@
-const { PrismaClient } = require('@prisma/client');
+const {PrismaClient} = require('@prisma/client');
 const bcrypt = require('bcryptjs');
 
 const prisma = new PrismaClient();
@@ -49,7 +49,7 @@ async function main() {
 
     const countryData = await prisma.country.findMany({
         where: {
-            code: { in: ['UAE', 'IN', 'US', 'DE'] },
+            code: {in: ['UAE', 'IN', 'US', 'DE']},
         },
     });
 

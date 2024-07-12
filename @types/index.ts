@@ -5,3 +5,14 @@ export type TUserData = {
     password: string;
     message: string;
 };
+
+
+export interface ICountry {
+    name: string;
+}
+
+export interface IUser {
+    username: string;
+    email: string;
+    country?: ICountry;
+}

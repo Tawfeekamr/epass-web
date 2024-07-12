@@ -1,5 +1,5 @@
 import {z} from "zod";
-import { uaeSchema, indiaSchema, usSchema, deSchema, defaultSchema } from '@/utils/validation';
+import {defaultSchema, deSchema, indiaSchema, uaeSchema, usSchema} from '@/utils/validation';
 
 export type TLoginData = {
     token?: string;
