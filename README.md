@@ -68,7 +68,7 @@ To seed the database with initial data, follow these steps:
    Inside the container, run the seed script to populate the database:
 
    ```bash
-   npm run seed
+   npm run prisma:seed
    ```
 
    This script will create initial entries for locales, countries, username rules, and users.
